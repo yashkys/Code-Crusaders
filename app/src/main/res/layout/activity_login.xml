@@ -13,7 +13,7 @@
         android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hey, Hello "
+        android:text="Welcome Back"
         android:textColor="@color/textColor"
         android:textSize="28sp"
         android:textStyle="bold"
