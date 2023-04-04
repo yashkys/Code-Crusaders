@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:padding="32dp"
+    android:backgroundTint="@color/appBackground"
     tools:context=".AddDetailsActivity">
 
     <ScrollView
@@ -22,7 +23,7 @@
                 android:layout_margin="8dp"
                 android:backgroundTint="@android:color/transparent"
                 android:contentDescription="Back Button"
-                android:src="@drawable/userimage"
+                android:src="@drawable/ic_person"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -32,12 +33,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"
+                android:background="@android:color/transparent"
                 android:src="@drawable/baseline_add_circle_24"
                 app:layout_constraintBottom_toBottomOf="@+id/profile_image"
                 app:layout_constraintEnd_toEndOf="@+id/profile_image"
                 app:layout_constraintStart_toStartOf="@+id/profile_image"
                 app:layout_constraintTop_toBottomOf="@+id/profile_image"
-                app:tint="@color/purple_500" />
+                app:tint="@color/buttonColor" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_input_layout"
@@ -49,6 +51,7 @@
                 android:textColorHint="#b3b3b3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:boxBackgroundColor="@color/editTextColor"
                 app:layout_constraintTop_toBottomOf="@+id/profile_image">
                 <!--        app:startIconDrawable="@drawable/ic_email"-->
                 <EditText
@@ -72,6 +75,7 @@
                 android:textColorHint="#b3b3b3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:boxBackgroundColor="@color/editTextColor"
                 app:layout_constraintTop_toBottomOf="@+id/text_input_layout">
                 <!--        app:startIconDrawable="@drawable/ic_email"-->
                 <EditText
@@ -95,6 +99,7 @@
                 android:textColorHint="#b3b3b3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:boxBackgroundColor="@color/editTextColor"
                 app:layout_constraintTop_toBottomOf="@+id/text_input_layout2">
                 <!--        app:startIconDrawable="@drawable/ic_email"-->
                 <EditText
@@ -118,6 +123,7 @@
                 android:textColorHint="#b3b3b3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:boxBackgroundColor="@color/editTextColor"
                 app:layout_constraintTop_toBottomOf="@+id/text_input_layout3">
                 <!--        app:startIconDrawable="@drawable/ic_email"-->
                 <EditText
@@ -139,6 +145,7 @@
                 android:layout_marginVertical="16dp"
                 android:hint="Height (in cm)"
                 android:textColorHint="#b3b3b3"
+                app:boxBackgroundColor="@color/editTextColor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_input_layout4">
@@ -161,6 +168,7 @@
                 android:layout_below="@id/text_input_layout2"
                 android:layout_marginVertical="16dp"
                 android:text="Save"
+                android:backgroundTint="@color/buttonColor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_input_layout5" />
