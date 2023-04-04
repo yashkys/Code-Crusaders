@@ -148,6 +148,7 @@ public class AddDetailsActivity extends AppCompatActivity {
         userRef.child("height").setValue(height);
         userRef.child("gender").setValue(gender);
         userRef.child("dob").setValue(DOB);
+        userRef.child("username").setValue(username);
     }
 
     private boolean verifyData() {

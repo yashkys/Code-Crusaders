@@ -76,7 +76,7 @@ public class RegisterActivity extends AppCompatActivity {
                         assert mUser != null;
                         // Store the user email in the Firebase Realtime Database
                         userRef.child(username).child("email").setValue(email);
-                        userRef.child(username).child("uid").setValue(mUser.getUid());
+//                        userRef.child(username).child("uid").setValue(mUser.getUid());
                         sendToNextActivity();
                     } else {
                         Toast.makeText(this, "" + task.getException(), Toast.LENGTH_SHORT).show();
