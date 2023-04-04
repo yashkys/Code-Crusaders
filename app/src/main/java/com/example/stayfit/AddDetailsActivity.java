@@ -1,5 +1,7 @@
 package com.example.stayfit;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -13,6 +15,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,7 +24,13 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.stayfit.databinding.ActivityAddDetailsBinding;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -106,11 +115,43 @@ public class AddDetailsActivity extends AppCompatActivity {
         if(verifyData()){
             uploadData();
 
-            Intent intent = new Intent(this, HomeActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
+
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestEmail()
+                    .build();
+            GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(AddDetailsActivity.this, gso);
+
+            Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+            someActivityResultLauncher2.launch(signInIntent);
+            Intent i = new Intent(this, HomeActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
         }else {
             Toast.makeText(this, "Enter the details Correctly", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    ActivityResultLauncher<Intent> someActivityResultLauncher2 = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    // There are no request codes
+                    Intent data = result.getData();
+                    Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                    handleSignInResult(task);
+                }
+            });
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            // Sign-in was successful, so you can make API calls now
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            // TODO: Perform API calls related to step count
+
+        } catch (ApiException e) {
+            // Sign-in failed, so you can show an error message to the user
+            Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
+            // TODO: Show an error message to the user
         }
     }
 
@@ -135,12 +176,6 @@ public class AddDetailsActivity extends AppCompatActivity {
             byte[] data = baos.toByteArray();
             UploadTask uploadTask = imageRef.putBytes(data);
 
-            // Show a progress dialog while the upload is in progress
-//            ProgressDialog progressDialog = new ProgressDialog(this);
-//            progressDialog.setMessage("Uploading image...");
-//            progressDialog.setCancelable(false);
-//            progressDialog.show();
-
             // After the upload is complete, get the download URL of the image and store it in Firebase Realtime Database
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -154,7 +189,6 @@ public class AddDetailsActivity extends AppCompatActivity {
                             userRef.child("imageUrl")
                                     .setValue(imageUrl);
 
-//                            progressDialog.dismiss();
                             Toast.makeText(AddDetailsActivity.this, "Image uploaded successfully!", Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -172,10 +206,22 @@ public class AddDetailsActivity extends AppCompatActivity {
 
     private boolean verifyData() {
         String dob = binding.edtDob.getText().toString();
+        String weight = binding.edtWeight.getText().toString();
+        String name = binding.edtName.getText().toString();
+        String height = binding.edtHeight.getText().toString();
         boolean result = true;
         if(dob.length() != 8 ){
             result = false;
             binding.edtDob.setError("Please enter correct date of birth");
+        } else if (weight.length()<=0) {
+            result = false;
+            binding.edtWeight.setError("Please enter correct weight");
+        }else if (height.length()<=0) {
+            result = false;
+            binding.edtHeight.setError("Please enter correct height");
+        }else if (name.length()<=0) {
+            result = false;
+            binding.edtName.setError("Please enter correct name");
         }
         return result;
     }

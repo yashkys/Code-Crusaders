@@ -5,6 +5,7 @@ import static android.content.Context.ALARM_SERVICE;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -18,6 +19,10 @@ import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -35,6 +40,9 @@ import com.example.stayfit.User;
 import com.example.stayfit.databinding.FragmentHomeBinding;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.fitness.Fitness;
 import com.google.android.gms.fitness.FitnessOptions;
 import com.google.android.gms.fitness.data.DataPoint;
@@ -45,6 +53,7 @@ import com.google.android.gms.fitness.request.DataReadRequest;
 import com.google.android.gms.fitness.result.DataReadResponse;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -116,17 +125,7 @@ public class HomeFragment extends Fragment  { //implements SensorEventListener {
             public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
 
-//
-//        stepProgressText = binding.stepProgressText;
-//
-//        if (isPermissionGranted()) {
-//            requestPermission ();
-//        }
-//
-//        loadData();
-//        resetData();
-//
-//        sensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
+
         GoogleSignInAccount account = GoogleSignIn.getAccountForExtension(context, fitnessOptions);
         Fitness.getRecordingClient(context, account)
                 .subscribe(DataType.TYPE_STEP_COUNT_DELTA)
@@ -138,6 +137,17 @@ public class HomeFragment extends Fragment  { //implements SensorEventListener {
                     // Permission not granted.
                     Log.e(TAG, "Failed to subscribe for step count", e);
                 });
+//
+//        stepProgressText = binding.stepProgressText;
+//
+//        if (isPermissionGranted()) {
+//            requestPermission ();
+//        }
+//
+//        loadData();
+//        resetData();
+//
+//        sensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
         return view;
     }
 
