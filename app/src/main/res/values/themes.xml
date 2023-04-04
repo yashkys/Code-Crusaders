@@ -24,4 +24,38 @@
     <style name="Theme.StayFit.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.StayFit.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="NumberPickerText">
+        <item name="android:textSize">40sp</item>
+        <item name="android:textColorPrimary">@color/DarkGray</item>
+    </style>
+
+    <style name="NumberPickerTopLabel">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@android:color/holo_red_dark</item>
+    </style>
+
+    <style name="NumberPickersSeparator">
+        <item name="android:textSize">40sp</item>
+        <item name="android:textColor">@color/DarkGray</item>
+    </style>
+
+
+    <style name="ButtonClockController">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/DarkGray</item>
+    </style>
+
+    <style name="TimerMessageStyle">
+        <item name="android:textSize">50sp</item>
+        <item name="android:textColor">@color/DarkRed</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+
+    <style name="NumberTextViewsStyle">
+        <item name="android:textSize">50sp</item>
+        <item name="android:textColor">@color/DarkGray</item>
+        <item name="android:gravity">center</item>
+    </style>
 </resources>

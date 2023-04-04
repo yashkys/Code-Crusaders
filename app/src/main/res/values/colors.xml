@@ -17,4 +17,7 @@
     <color name="appBackground">#0D1005</color>
     <color name="iconColor">#808080</color>
     <color name="editTextColor">#1F1F1F</color>
+    <color name="DarkGray">#919191</color>
+    <color name="DarkRed">#ffcc0000</color>
+
 </resources>
