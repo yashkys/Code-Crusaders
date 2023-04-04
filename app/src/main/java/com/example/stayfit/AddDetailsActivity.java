@@ -14,7 +14,10 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.stayfit.databinding.ActivityAddDetailsBinding;
@@ -38,6 +41,9 @@ public class AddDetailsActivity extends AppCompatActivity {
     FirebaseUser mUser;
     String username;
 
+    int pos = 0;
+    Spinner spinner;
+    String[] gender = {"Male", "Female"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,8 +65,21 @@ public class AddDetailsActivity extends AppCompatActivity {
 
         profileImage.setOnClickListener(view12 -> selectImageIntent());
 
-    }
+        spinner = binding.genderSpinner;
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) { pos = i; }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                pos = 0;
+            }
+        });
 
+        ArrayAdapter<String> adapter = new ArrayAdapter<>( this, android.R.layout.simple_spinner_item, gender);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+    }
     private void selectImageIntent() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -100,7 +119,7 @@ public class AddDetailsActivity extends AppCompatActivity {
         int weight = Integer.parseInt(binding.edtWeight.getText().toString());
         int height = Integer.parseInt(binding.edtHeight.getText().toString());
         int DOB = Integer.parseInt(binding.edtDob.getText().toString());
-        String gender = binding.edtGender.getText().toString().toLowerCase();
+        String gender = (pos == 0)?"Male":"Female";
 
         if (profileImage.getDrawable() != null) {
             Bitmap bitmap = ((BitmapDrawable) profileImage.getDrawable()).getBitmap();
@@ -142,28 +161,21 @@ public class AddDetailsActivity extends AppCompatActivity {
                 }
             });
         }
-
+        String gen = pos == 0 ?  "male" : "female";
         userRef.child("name").setValue(name);
         userRef.child("weight").setValue(weight);
         userRef.child("height").setValue(height);
-        userRef.child("gender").setValue(gender);
+        userRef.child("gender").setValue(gen);
         userRef.child("dob").setValue(DOB);
         userRef.child("username").setValue(username);
     }
 
     private boolean verifyData() {
         String dob = binding.edtDob.getText().toString();
-        String gender = binding.edtGender.getText().toString().toLowerCase();
         boolean result = true;
         if(dob.length() != 8 ){
             result = false;
             binding.edtDob.setError("Please enter correct date of birth");
-        }
-        if (gender.equals("male") || gender.equals("female")) {
-
-        }else{
-            result = false;
-            binding.edtGender.setError("Please enter correct gender (male or female)");
         }
         return result;
     }

@@ -19,5 +19,8 @@
     <color name="editTextColor">#1F1F1F</color>
     <color name="DarkGray">#919191</color>
     <color name="DarkRed">#ffcc0000</color>
+    <color name="mustard">#FF9800</color>
+    <color name="yellow">#FFEF65</color>
+    <color name="green">#4CAF50</color>
 
 </resources>

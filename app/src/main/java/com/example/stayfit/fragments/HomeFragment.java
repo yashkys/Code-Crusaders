@@ -102,6 +102,7 @@ public class HomeFragment extends Fragment  { //implements SensorEventListener {
         userRef = database.getReference().child("users");
         calorieBurned = binding.tvCaloriesBurned;
         distanceMoved = binding.tvDistance;
+
         userRef.child(mUser.getUid()).child("username").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
