@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.StayFit" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimary">@color/lightBlue</item>
         <item name="colorPrimaryVariant">@color/appBackground</item>
         <item name="colorOnPrimary">@color/appBackground</item>
         <!-- Secondary brand color. -->

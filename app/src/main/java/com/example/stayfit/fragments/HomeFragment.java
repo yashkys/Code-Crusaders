@@ -134,20 +134,6 @@ public class HomeFragment extends Fragment  implements SensorEventListener {
             }
         });
 
-//        userRef.child("username").addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-//                    user = snapshot1.getValue(User.class);
-//                }
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-
-//        binding.tvUserName.setText(user.getName());
     }
 
     private void setGreetings() {
