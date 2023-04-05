@@ -11,23 +11,24 @@
         android:id="@+id/doctor_image"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:background="@android:color/transparent"
-        android:src=""
         android:layout_marginTop="24dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_person"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+        android:id="@+id/linearLayout8"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="14dp"
         android:background="@android:color/transparent"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/doctor_image"
-        app:layout_constraintTop_toTopOf="parent"
-        android:orientation="vertical">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -48,12 +49,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_rating"
+                android:id="@+id/doctor_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
                 android:background="@android:color/transparent"
                 android:text=""
-                android:layout_marginHorizontal="8dp"
                 android:textColor="@color/yellow"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -72,93 +73,96 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@android:color/transparent"
+            android:layout_marginVertical="4dp"
             android:layout_marginStart="8dp"
-            android:layout_marginVertical="4dp">
+            android:background="@android:color/transparent"
+            android:orientation="horizontal">
 
 
             <TextView
                 android:id="@+id/doctor_speciality"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Speciality"
-                android:textSize="14sp"
                 android:background="@android:color/transparent"
-                android:textColor="@color/lightBlue" />
+                android:text="Speciality"
+                android:textColor="@color/lightBlue"
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text=" | "
-                android:background="@android:color/transparent"
                 android:layout_marginStart="8dp"
-                android:textColor="@color/lightBlue" />
+                android:background="@android:color/transparent"
+                android:text=" | "
+                android:textColor="@color/lightBlue"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/doctor_experience"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="3"
-                android:background="@android:color/transparent"
                 android:layout_marginStart="8dp"
-                android:textColor="@color/lightBlue" />
+                android:background="@android:color/transparent"
+                android:text="3"
+                android:textColor="@color/lightBlue"
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text=" years exp"
-                android:background="@android:color/transparent"
                 android:layout_marginStart="2dp"
-                android:textColor="@color/lightBlue"  />
+                android:background="@android:color/transparent"
+                android:text=" years exp"
+                android:textColor="@color/lightBlue"
+                android:textSize="14sp" />
 
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/lightBlue"
-            android:layout_margin="14dp"/>
+            android:layout_margin="14dp"
+            android:background="@color/lightBlue" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@android:color/transparent"
             android:layout_marginStart="8dp"
-            android:gravity="center_vertical">
+            android:background="@android:color/transparent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:layout_marginHorizontal="8dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/language_icon"
-                app:tint="@color/textColorSecondary"
-                android:layout_marginHorizontal="8dp"/>
+                app:tint="@color/textColorSecondary" />
+
             <TextView
                 android:id="@+id/languages_spoken"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:textSize="14sp"
                 android:text="English, Hindi"
-                android:textColor="@color/textColorSecondary"/>
+                android:textColor="@color/textColorSecondary"
+                android:textSize="14sp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginStart="8dp"
-            android:background="@android:color/transparent"
             android:layout_marginTop="14dp"
-            android:gravity="center_vertical">
+            android:background="@android:color/transparent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="24dp"
@@ -167,14 +171,15 @@
                 android:background="@android:color/transparent"
                 android:src="@drawable/edu_icon"
                 app:tint="@color/textColorSecondary" />
+
             <TextView
                 android:id="@+id/doctor_education"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
                 android:background="@android:color/transparent"
                 android:text="MBBS, MS, FRCS(Glasgow -UK)"
-                android:textColor="@color/textColorSecondary"/>
+                android:textColor="@color/textColorSecondary"
+                android:textSize="14sp" />
         </LinearLayout>
 
 
@@ -182,31 +187,41 @@
             android:id="@+id/doctor_availability_day"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/mustard"
-            android:layout_marginTop="24dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
             android:background="@android:color/transparent"
-            android:text="MON, THU, SAT"/>
+            android:text="MON, THU, SAT"
+            android:textColor="@color/mustard" />
 
         <TextView
             android:id="@+id/doctor_availability_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/blue1"
             android:layout_marginStart="8dp"
-            android:background="@android:color/transparent"
             android:layout_marginTop="6dp"
-            android:text="(04:00 PM - 06:00 PM)"/>
+            android:background="@android:color/transparent"
+            android:text="(04:00 PM - 06:00 PM)"
+            android:textColor="@color/blue1" />
 
         <Button
+            android:id="@+id/book_appointment_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="18dp"
             android:text="Book appointment"
-            android:textColor="@color/textColorHighlight"
-            android:id="@+id/book_appointment_button"/>
+            android:textColor="@color/textColorHighlight" />
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="14dp"
+        android:background="@color/editTextColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout8" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
