@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/author_profile_image"
+        android:layout_width="48dp"
+        android:layout_height="45dp"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_person"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/author_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="Name"
+        android:textColor="@color/textColorHighlight"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/author_profile_image"
+        app:layout_constraintStart_toEndOf="@+id/author_profile_image"
+        app:layout_constraintTop_toTopOf="@+id/author_profile_image" />
+
+<!--    <TextView-->
+<!--        android:id="@+id/btnFollow"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="12dp"-->
+<!--        android:text=" follow"-->
+<!--        android:textColor="@color/lightBlue"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/author_name"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/author_name"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/author_name" />-->
+
+    <TextView
+        android:id="@+id/tv_upload_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" 9 Mar, 2023"
+        android:textColor="@color/textColorSecondary"
+        app:layout_constraintBottom_toBottomOf="@+id/author_name"
+        app:layout_constraintEnd_toEndOf="@+id/tv_blog"
+        app:layout_constraintTop_toTopOf="@+id/author_name" />
+
+    <TextView
+        android:id="@+id/tv_blog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Until recently. In particular, the garbled words of lorem ipsum bear an unmistakable resemblance to sections 1.10.32–33 of Cicero's work, with the most notable passage excerpted below: “Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.” A 1914 English translation by Harris Rackham reads: “Nor is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but occasionally circumstances occur in which toil and pain can procure him some great pleasure.” McClintock's eye for detail certainly helped narrow the whereabouts of lorem ipsum's origin, however, the “how and when” still remain something of a mystery, with competing theories and timelines."
+        android:textColor="@color/textColorSecondary"
+        app:layout_constraintTop_toBottomOf="@+id/author_profile_image"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <ImageView
+        android:id="@+id/iv_like"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_like"
+        app:layout_constraintStart_toStartOf="@+id/tv_blog"
+        app:layout_constraintTop_toBottomOf="@+id/tv_blog"
+        app:tint="@color/iconColor" />
+
+    <ImageView
+        android:id="@+id/iv_share"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_share"
+        app:layout_constraintEnd_toEndOf="@+id/tv_blog"
+        app:layout_constraintTop_toBottomOf="@+id/tv_blog"
+        app:tint="@color/iconColor" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

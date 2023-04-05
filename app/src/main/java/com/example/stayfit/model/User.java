@@ -1,4 +1,4 @@
-package com.example.stayfit;
+package com.example.stayfit.model;
 
 public class User {
 

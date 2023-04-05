@@ -87,8 +87,8 @@ public class ProfileFragment extends Fragment {
                 // Retrieve user data
                 String name = dataSnapshot.child("name").getValue(String.class);
                 String email = dataSnapshot.child("email").getValue(String.class);
-                int weight = Integer.parseInt(binding.editTextWeight.getText().toString());
-                int height = Integer.parseInt(binding.editTextHeight.getText().toString());
+//                int weight = Integer.parseInt(dataSnapshot.child("email").getValue(String.class););
+//                int height = Integer.parseInt(binding.editTextHeight.getText().toString());
                 // int dob = Integer.parseInt(binding.dob.getText().toString());
                 String imageUrl = dataSnapshot.child("imageUrl").getValue(String.class);
 
@@ -101,9 +101,9 @@ public class ProfileFragment extends Fragment {
                 }finally {
                     binding.userName.setText(name);
                     binding.userEmail.setText(email);
-                    binding.editTextWeight.setText(weight);
-                    binding.userName.setText(username);
-                    binding.editTextHeight.setText(height);
+                    binding.userUsername.setText("/@" + username);
+                    binding.editTextWeight.setText("" + dataSnapshot.child("weight").getValue(Integer.class));
+                    binding.editTextHeight.setText("" +dataSnapshot.child("height").getValue(Integer.class));
                 }
             }
 

@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.stayfit.databinding.ActivityHomeBinding;
 import com.example.stayfit.fragments.BrowseFragment;
+import com.example.stayfit.fragments.FeedFragment;
 import com.example.stayfit.fragments.HomeFragment;
 import com.example.stayfit.fragments.ProfileFragment;
 
@@ -53,6 +54,7 @@ public class HomeActivity extends AppCompatActivity { // implements SensorEventL
 //        resetData();
 //
 //        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        selectedFragment = new HomeFragment();
         binding.bottomNavigationBar.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.nav_home :
@@ -63,6 +65,9 @@ public class HomeActivity extends AppCompatActivity { // implements SensorEventL
                     break;
                 case R.id.nav_profile:
                     selectedFragment  = new ProfileFragment();
+                    break;
+                case R.id.nav_feed:
+                    selectedFragment  = new FeedFragment();
                     break;
                 default:
                     selectedFragment = new HomeFragment();
@@ -75,27 +80,35 @@ public class HomeActivity extends AppCompatActivity { // implements SensorEventL
 
             return true;
         });
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frame_layout, (selectedFragment != null) ? selectedFragment : new HomeFragment())
+                .commit();
+
     }
-//
-//    @Override
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.nav_home :
+                selectedFragment = new HomeFragment();
+                break;
+            case R.id.nav_browse :
+                selectedFragment = new BrowseFragment();
+                break;
+            case R.id.nav_profile:
+                selectedFragment  = new ProfileFragment();
+                break;
+        }
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frame_layout, (selectedFragment != null) ? selectedFragment : new HomeFragment())
+                .commit();
+
+        return true;
+    }
+
+//        @Override
 //    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.nav_home :
-//                selectedFragment = new HomeFragment();
-//                break;
-//            case R.id.nav_browse :
-//                selectedFragment = new BrowseFragment();
-//                break;
-//            case R.id.nav_profile:
-//                selectedFragment  = new ProfileFragment();
-//                break;
-//        }
-//        getSupportFragmentManager().beginTransaction()
-//                .replace(R.id.frame_layout, (selectedFragment != null) ? selectedFragment : new HomeFragment())
-//                .commit();
-//
-//        return true;
 //    }
-//
+
 
 }

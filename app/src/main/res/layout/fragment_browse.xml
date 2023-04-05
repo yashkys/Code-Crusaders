@@ -10,6 +10,7 @@
     tools:context=".fragments.BrowseFragment">
 
     <LinearLayout
+        android:layout_marginTop="32dp"
         android:id="@+id/meditation_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
