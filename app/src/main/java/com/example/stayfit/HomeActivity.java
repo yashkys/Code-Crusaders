@@ -1,12 +1,18 @@
 package com.example.stayfit;
 
+import static android.content.ContentValues.TAG;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
@@ -15,6 +21,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -25,6 +32,12 @@ import com.example.stayfit.fragments.BrowseFragment;
 import com.example.stayfit.fragments.FeedFragment;
 import com.example.stayfit.fragments.HomeFragment;
 import com.example.stayfit.fragments.ProfileFragment;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 
 public class HomeActivity extends AppCompatActivity { // implements SensorEventListener
 
@@ -54,6 +67,9 @@ public class HomeActivity extends AppCompatActivity { // implements SensorEventL
 //        resetData();
 //
 //        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
+
+
         selectedFragment = new HomeFragment();
         binding.bottomNavigationBar.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
@@ -84,7 +100,9 @@ public class HomeActivity extends AppCompatActivity { // implements SensorEventL
                 .replace(R.id.frame_layout, (selectedFragment != null) ? selectedFragment : new HomeFragment())
                 .commit();
 
+
     }
+
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {

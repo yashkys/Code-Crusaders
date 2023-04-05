@@ -50,6 +50,8 @@ public class AddDetailsActivity extends AppCompatActivity {
     FirebaseUser mUser;
     String username;
 
+    GoogleSignInAccount account;
+
     int pos = 0;
     Spinner spinner;
     String[] gender = {"Male", "Female"};
@@ -114,44 +116,13 @@ public class AddDetailsActivity extends AppCompatActivity {
     private void verifyDataAndUpload() {
         if(verifyData()){
             uploadData();
-
-
-            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestEmail()
-                    .build();
-            GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(AddDetailsActivity.this, gso);
-
-            Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-            someActivityResultLauncher2.launch(signInIntent);
+//
+//
             Intent i = new Intent(this, HomeActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
         }else {
             Toast.makeText(this, "Enter the details Correctly", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    ActivityResultLauncher<Intent> someActivityResultLauncher2 = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == Activity.RESULT_OK) {
-                    // There are no request codes
-                    Intent data = result.getData();
-                    Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-                    handleSignInResult(task);
-                }
-            });
-
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-        try {
-            // Sign-in was successful, so you can make API calls now
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            // TODO: Perform API calls related to step count
-
-        } catch (ApiException e) {
-            // Sign-in failed, so you can show an error message to the user
-            Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
-            // TODO: Show an error message to the user
         }
     }
 
