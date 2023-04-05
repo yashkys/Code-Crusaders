@@ -40,9 +40,6 @@ import com.example.stayfit.User;
 import com.example.stayfit.databinding.FragmentHomeBinding;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.fitness.Fitness;
 import com.google.android.gms.fitness.FitnessOptions;
 import com.google.android.gms.fitness.data.DataPoint;
@@ -53,7 +50,6 @@ import com.google.android.gms.fitness.request.DataReadRequest;
 import com.google.android.gms.fitness.result.DataReadResponse;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -83,15 +79,15 @@ public class HomeFragment extends Fragment  { //implements SensorEventListener {
     FirebaseDatabase database;
     DatabaseReference userRef;
 
-    SensorManager sensorManager;
-    boolean running  = false;
-    double magnitudePreviousStep;
-    float totalSteps = 0f;
-    float previousTotalSteps = 0f;
-    int ACTIVITY_RECOGNITION_REQUEST_CODE = 100;
+//    SensorManager sensorManager;
+//    boolean running  = false;
+//    double magnitudePreviousStep;
+//    float totalSteps = 0f;
+//    float previousTotalSteps = 0f;
+//    int ACTIVITY_RECOGNITION_REQUEST_CODE = 100;
     String username ;
 
-    User user;
+//    User user;
 
 
     FitnessOptions fitnessOptions = FitnessOptions.builder()
