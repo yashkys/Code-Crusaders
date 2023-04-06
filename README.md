@@ -2,15 +2,14 @@
 
 #### Atrang Hackathon
 ---
-
+ * ios [app source code](https://github.com/lalwanirishabh/Code-Crucaders.git)
+---
 ### Apk Link
-* [Android]([https://youtu.be/u0D6fSbsSls](https://drive.google.com/file/d/1maV0h5Y36ie57GKK5CC7vaxe4dp551sn/view?usp=sharing))
-* [IOS](https://youtu.be/zQ4mEHUCuvY)
+* [Android](https://drive.google.com/file/d/1maV0h5Y36ie57GKK5CC7vaxe4dp551sn/view?usp=sharing)
 ---
 
 ### Youtube Link
-* [App Demo](https://youtu.be/u0D6fSbsSls)
-* [Design](https://youtu.be/zQ4mEHUCuvY)
+* [App Demo]()
 ---
 
 ### Layouts
