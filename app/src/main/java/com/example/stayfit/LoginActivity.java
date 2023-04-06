@@ -1,8 +1,17 @@
 package com.example.stayfit;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +22,8 @@ import android.widget.Toast;
 import com.example.stayfit.databinding.ActivityLoginBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -22,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView tvSignup;
     FirebaseAuth mAuth;
     FirebaseUser mUser;
+    int ACTIVITY_RECOGNITION_REQUEST_CODE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +58,33 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(view1 -> {
             PerformLogin();
         });
-
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACTIVITY_RECOGNITION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted, request it
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACTIVITY_RECOGNITION},
+                    ACTIVITY_RECOGNITION_REQUEST_CODE);
+        } else {
+            // Permission is already granted
+            Toast.makeText(this, "ACTIVITY_RECOGNITION permission granted", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == ACTIVITY_RECOGNITION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission is granted
+                Toast.makeText(this, "ACTIVITY_RECOGNITION permission granted", Toast.LENGTH_SHORT).show();
+            } else {
+                // Permission is denied
+                Toast.makeText(this, "ACTIVITY_RECOGNITION permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+@Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
@@ -73,6 +108,23 @@ public class LoginActivity extends AppCompatActivity {
             mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     Toast.makeText(this, "Logged in", Toast.LENGTH_SHORT).show();
+
+                    SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+                    StepCountProvider sp = new StepCountProvider(LoginActivity.this, sensorManager);
+                    int step = sp.getStepCount();
+
+                    //        // Get the SharedPreferences object
+                    //        SharedPreferences sharedPreferences = getSharedPreferences("my_preferences", Context.MODE_PRIVATE);
+                    //        // Create an editor to modify the SharedPreferences
+                    //        SharedPreferences.Editor editor = sharedPreferences.edit();
+                    //        editor.putInt("previousStepCount", step);
+                    //        editor.apply();
+
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
+                    assert mUser != null;
+                    DatabaseReference myRef = database.getReference("users").child(mUser.getUid());
+                    myRef.child("lastStepCount").setValue(step);
                     sendToNextActivity();
                 } else {
                     Toast.makeText(this, "" + task.getException(), Toast.LENGTH_SHORT).show();

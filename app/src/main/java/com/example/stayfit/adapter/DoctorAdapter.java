@@ -1,5 +1,6 @@
 package com.example.stayfit.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.stayfit.R;
 import com.example.stayfit.model.Doctor;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -22,7 +30,9 @@ public class DoctorAdapter  extends RecyclerView.Adapter<DoctorAdapter.viewHolde
     ArrayList<Doctor> list;
     Context context;
 
-
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
+    DatabaseReference myRef = database.getReference("users").child(mUser.getUid());
     public DoctorAdapter(ArrayList<Doctor> list,Context context){
         this.list=list;
         this.context=context;
@@ -35,6 +45,7 @@ public class DoctorAdapter  extends RecyclerView.Adapter<DoctorAdapter.viewHolde
         return new DoctorAdapter.viewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         Doctor model=list.get(position);
@@ -42,43 +53,52 @@ public class DoctorAdapter  extends RecyclerView.Adapter<DoctorAdapter.viewHolde
                 .load(model.getImageurl())
                 .into(holder.image);
 
-//        StringBuilder availableDays= new StringBuilder(" ");
-//        StringBuilder availableTime= new StringBuilder(" ");
-//        StringBuilder languagesSpoken= new StringBuilder(" ");
-//        String[] availableDaysArray = model.getAvailableDays();
-//        String[] availableTimeArray = model.getAvailableTime();
-//        String[] languagesSpokenArray = model.getLanguagesSpoken();
-//        for(int i = 0; i < availableDaysArray.length-1; i++){
-//            availableDays.append(" | ").append(availableDaysArray[i]);
-//        }
-//        availableDays.append(" | ").append(availableDaysArray[availableDaysArray.length - 1]);
-//        for(int i = 0; i < availableDaysArray.length-1; i++){
-//            availableTime.append(" | ").append(availableTimeArray[i]);
-//        }
-//        availableTime.append(" | ").append(availableTimeArray[availableTimeArray.length - 1]);
-//        for(int i = 0; i < availableDaysArray.length-1; i++){
-//            languagesSpoken.append(" | ").append(languagesSpokenArray[i]);
-//        }
-//        languagesSpoken.append(" | ").append(languagesSpokenArray[languagesSpokenArray.length - 1]);
-//        holder.availableDays.setText(availableDays.toString());
-//        holder.availableTime.setText(availableTime.toString());
-//        holder.languagesSpoken.setText(languagesSpoken.toString());
-
         holder.name.setText(model.getName());
-        holder.rating.setText("" + model.getRating());
+        holder.rating.setText(Integer.toString(model.getRating()));
         holder.speciality.setText(model.getSpeciality());
         holder.experience.setText(model.getExperience());
         holder.availableDays.setText(model.getAvailableDays());
         holder.availableTime.setText(model.getAvailableTime());
         holder.languagesSpoken.setText(model.getLanguagesSpoken());
         holder.education.setText(model.getEducation());
+        final String[] usernames_arr = {" "};
+        final String[] user_username = {" "};
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Retrieve user step  data
+                usernames_arr[0] = " " + dataSnapshot.child("RequestedDoctor").getValue(String.class);
+                user_username[0] =  dataSnapshot.child("username").getValue(String.class);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(context, "An Error occurred", Toast.LENGTH_SHORT).show();
+            }
+        });
+        String[] usernamesArray = usernames_arr[0].split(",");
+        for (String str : usernamesArray) {
+            if (str.equals(model.getUsername())) {
+                holder.btnBookAppointment.setClickable(false);
+                holder.btnBookAppointment.setText("Requested");
+                break;
+            }
+        }
+        holder.btnBookAppointment.setOnClickListener(view -> {
 
-        holder.btnBookAppointment.setOnClickListener(view -> btnBookAppointmentClicked());
+            btnBookAppointmentClicked(model.getUsername(), user_username[0]);
+            holder.btnBookAppointment.setClickable(false);
+            holder.btnBookAppointment.setText("Requested");
+        });
 
     }
 
-    private void btnBookAppointmentClicked() {
+    private void btnBookAppointmentClicked(String username, String user_username) {
         Toast.makeText(context, "Appointment request received", Toast.LENGTH_SHORT).show();
+        assert mUser != null;
+        myRef.child("RequestedDoctor").setValue(","+username);
+        DatabaseReference myRef2 = FirebaseDatabase.getInstance().getReference("pendingRequests");
+        myRef2.child("username").setValue(username);
+        myRef2.child("username").child(username).setValue(user_username);
     }
 
     @Override

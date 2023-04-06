@@ -1,7 +1,5 @@
 package com.example.stayfit;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -9,13 +7,11 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,13 +20,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.stayfit.databinding.ActivityAddDetailsBinding;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -49,8 +38,6 @@ public class AddDetailsActivity extends AppCompatActivity {
     DatabaseReference userRef;
     FirebaseUser mUser;
     String username;
-
-    GoogleSignInAccount account;
 
     int pos = 0;
     Spinner spinner;
@@ -72,7 +59,7 @@ public class AddDetailsActivity extends AppCompatActivity {
 
         userRef = FirebaseDatabase.getInstance().getReference().child("users").child(username);
 
-        binding.buttonSave.setOnClickListener(view1 -> { verifyDataAndUpload(); });
+        binding.buttonSave.setOnClickListener(view1 -> verifyDataAndUpload());
 
         profileImage.setOnClickListener(view12 -> selectImageIntent());
 
@@ -116,11 +103,6 @@ public class AddDetailsActivity extends AppCompatActivity {
     private void verifyDataAndUpload() {
         if(verifyData()){
             uploadData();
-//
-//
-            Intent i = new Intent(this, HomeActivity.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(i);
         }else {
             Toast.makeText(this, "Enter the details Correctly", Toast.LENGTH_SHORT).show();
         }
@@ -148,29 +130,23 @@ public class AddDetailsActivity extends AppCompatActivity {
             UploadTask uploadTask = imageRef.putBytes(data);
 
             // After the upload is complete, get the download URL of the image and store it in Firebase Realtime Database
-            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            String imageUrl = uri.toString();
+            uploadTask.addOnSuccessListener(taskSnapshot -> imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                String imageUrl = uri.toString();
 
-                            // Store the image URL in Firebase Realtime Database
-                            userRef.child("imageUrl")
-                                    .setValue(imageUrl);
+                // Store the image URL in Firebase Realtime Database
+                userRef.child("imageUrl")
+                        .setValue(imageUrl);
 
-                            Toast.makeText(AddDetailsActivity.this, "Image uploaded successfully!", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            });
+                Toast.makeText(AddDetailsActivity.this, "Image uploaded successfully!", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(AddDetailsActivity.this, HomeActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+            }));
         }
-        String gen = pos == 0 ?  "male" : "female";
         userRef.child("name").setValue(name);
         userRef.child("weight").setValue(weight);
         userRef.child("height").setValue(height);
-        userRef.child("gender").setValue(gen);
+        userRef.child("gender").setValue(gender);
         userRef.child("dob").setValue(DOB);
         userRef.child("username").setValue(username);
     }

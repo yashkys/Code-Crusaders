@@ -3,6 +3,7 @@ package com.example.stayfit;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -77,6 +78,24 @@ public class RegisterActivity extends AppCompatActivity {
                         // Store the user email in the Firebase Realtime Database
                         userRef.child(username).child("email").setValue(email);
 //                        userRef.child(username).child("uid").setValue(mUser.getUid());
+
+                        SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+                        StepCountProvider sp = new StepCountProvider(RegisterActivity.this, sensorManager);
+                        int step = sp.getStepCount();
+
+//        // Get the SharedPreferences object
+//        SharedPreferences sharedPreferences = getSharedPreferences("my_preferences", Context.MODE_PRIVATE);
+//        // Create an editor to modify the SharedPreferences
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.putInt("previousStepCount", step);
+//        editor.apply();
+
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
+                        assert mUser != null;
+                        DatabaseReference myRef = database.getReference("users").child(mUser.getUid());
+                        myRef.child("beforeInstallStepCount").setValue(step);
+                        myRef.child("lastStepCount").setValue(step);
                         sendToNextActivity();
                     } else {
                         Toast.makeText(this, "" + task.getException(), Toast.LENGTH_SHORT).show();

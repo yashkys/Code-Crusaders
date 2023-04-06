@@ -101,7 +101,7 @@ public class ProfileFragment extends Fragment {
                 }finally {
                     binding.userName.setText(name);
                     binding.userEmail.setText(email);
-                    binding.userUsername.setText("/@" + username);
+                    binding.userUsername.setText("@" + username);
                     binding.editTextWeight.setText("" + dataSnapshot.child("weight").getValue(Integer.class));
                     binding.editTextHeight.setText("" +dataSnapshot.child("height").getValue(Integer.class));
                 }
