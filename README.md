@@ -2,20 +2,21 @@
 
 #### Atrang Hackathon
 ---
- * ios [app source code](https://github.com/lalwanirishabh/Code-Crucaders.git)
+ * IOS [app source code](https://github.com/lalwanirishabh/Code-Crucaders.git)
 ---
 ### Apk Link
 * [Android](https://drive.google.com/file/d/1maV0h5Y36ie57GKK5CC7vaxe4dp551sn/view?usp=sharing)
+* IOS App .ipa can't be hosted because we didn't purchase Apple Developer Program.
 ---
 
 ### Youtube Link
-* [App Demo]()
+* [App Demo](https://youtu.be/3bgsmEN9a20)
 ---
 
 ### Layouts
 *  Splash Screen
 *  Login Screen 
-*  Resgister Sreen
+*  Register Screen
 *  Details Adding Activity
 *  Home Activity (Fragment and Bottom Navigation )
       1. Step Counter 
@@ -24,7 +25,7 @@
       5. Profile
       6. Medicine 
 *  Meditation 
-*  Exercise Rutine
+*  Exercise Routine
 *  Diet Recipes
 *  Book an Appointment
 ---
@@ -39,7 +40,7 @@ Our inspiration for StayFit stems from the need to provide a comprehensive healt
 ## How we built it
 The App was built using Java Language on Android Studio and Swift on XCode. The Frameworks used are Firebase, UIkit and HealthKit.
 ## Challenges we ran into
-Integrating with Third-Party APIs: FitLife may need to integrate with third-party APIs, such as Google Fit API for step tracking or nutrition APIs for recipe recommendations. These integrations can pose challenges in terms of API documentation, compatibility, and data consistency.
+Integrating with Third-Party APIs: StayFit may need to integrate with third-party APIs, such as Google Fit API for step tracking or nutrition APIs for recipe recommendations. These integrations can pose challenges in terms of API documentation, compatibility, and data consistency.
 
 ## Accomplishments that we're proud of
 Working together as team is one of the best parts of this project. 
@@ -52,7 +53,7 @@ Our health and fitness app, is designed to provide users with a comprehensive so
 We learnt to effectively use many stuff on android such as firebase , google fit api, healthkit,etc.
 
 ## What's next for StayFit
-*There are so many things in mind for the improvement of the App like Video Consultancy, personlaized record of activitites, etc but due to lack of time, working skills, and experience we haven't done much of what we aimed for.*  
+*There are so many things in mind for the improvement of the App like Video Consultancy, personalized record of activities, etc but due to lack of time, working skills, and experience we haven't done much of what we aimed for.*  
 
 ---
 ### Creators
