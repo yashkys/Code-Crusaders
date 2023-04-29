@@ -61,6 +61,3 @@ We learnt to effectively use many stuff on android such as firebase , google fit
      , _2nd Year Cse, IIITT_
 * Rishabh Lalwani 
      , _2nd Year Cse, IIITT_
-* Suman Raj
-      , 3rd Year Ece, IIITT_
-  
